@@ -2,11 +2,18 @@
 
 // a superhero fuction
 
-const getSuperhero  = () => {
-    fetch('https://superheroapi.com/api.php/3512451342333137/245')
+const SUPERHERO_Token = '3512451342333137'
+const BASE_URL = `https://superheroapi.com/api.php/${SUPERHERO_Token}`
+
+const getSuperhero  = (id, name) => {
+    fetch(`${BASE_URL}/${id}`)
     .then(response => response.json())
-    .then(json => console.log(json))
+    .then(json => console.log(json.image.url))
 }
 
 
-getSuperhero()
+getSuperhero(25)
+
+const img = "https://www.superherodb.com/pictures2/portraits/10/100/10405.jpg"
+
+document.querySelector('body').innerHTML += `<img src= "${img}"/>`
