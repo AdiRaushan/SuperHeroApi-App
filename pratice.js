@@ -7,8 +7,9 @@ const BASE_URL = `https://superheroapi.com/api.php/${SUPERHERO_Token}`
 
 const newheroButton = document.getElementById('heroButton')
 const newimgdiv = document.getElementById('heroImg')
+const SearchButton = document.getElementById('searchBtn')
 
-const getRandomSuperhero  = (id, name) => {
+const getRandomSuperhero  = (id) => {
 
 
     fetch(`${BASE_URL}/${id}`)
@@ -20,12 +21,13 @@ const getRandomSuperhero  = (id, name) => {
 
 }
 
-const getsearchSuperhero = () => {
-    fetch(`{BASE_URL}/search/${name}`)
+const getsearchSuperhero = (name) => {
+    fetch(`${BASE_URL}/search/${name}`)
     .then(response => response.json())
     .then(json => {
-        console.log(json)
-        newimgdiv.innerHTML = `<img src= "${json.image.url}" height="200" width="200"/>`
+        const hero = json.results[0]
+        console.log(hero)
+        newimgdiv.innerHTML = `<img src= "${hero.image.url}" height="200" width="200"/>`
     })
 }
 
@@ -35,3 +37,5 @@ const randomHero = () => {
 }
  
 newheroButton.onclick = () => getRandomSuperhero(randomHero())
+
+SearchButton.onclick = () => getsearchSuperhero('spider')
