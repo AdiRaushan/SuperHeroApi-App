@@ -16,13 +16,36 @@ const getRandomSuperhero  = (id) => {
     fetch(`${BASE_URL}/${id}`)
     .then(response => response.json())
     .then(json => {
+        const stats = getstats(json)
         const name = `<h2> ${json.name}</h2>`
-        const power = `<h3> COMBAT: ${json.powerstats.combat}</h3>`
-        // console.log(json)
+                // console.log(json)
         newimgdiv.innerHTML = `${name}<img src= "${json.image.url}" height="200" width="200"/>
-        ${power}`
+        ${stats}`
     })
 
+}
+
+const stattoemoji = {
+    intelligence: '🧠',
+
+    strength:"💪",
+
+    speed: "⚡",
+
+    durability: "🏋🏻",
+
+    power: "💥",
+
+    combat: "⚔"
+}
+
+const getstats = (character) =>{
+   const stats = Object.keys(character.powerstats).map(stat => {
+        return  `<p>${stattoemoji[stat]} ${stat.toUpperCase()}: ${character.powerstats[stat]}</p>`
+    })
+    console.log(stats)
+    
+    return stats.join('')
 }
 
 const getsearchSuperhero = (name) => {
